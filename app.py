@@ -39,7 +39,12 @@ if st.button("Predict Solubility"):
     st.success(
         f"Predicted Solubility (logS): {prediction[0]:.3f}"
     )
-
+if prediction[0] > -2:
+    st.info("🟢 High Solubility Molecule")
+elif prediction[0] > -4:
+    st.warning("🟡 Moderate Solubility Molecule")
+else:
+    st.error("🔴 Low Solubility Molecule")
 st.markdown("---")
 
 st.subheader("Model Information")
