@@ -46,3 +46,12 @@ st.subheader("Model Information")
 
 st.write("Algorithm: Random Forest Regressor")
 st.write("Target Variable: logS")
+
+model = joblib.load("solubility_model.pkl")
+st.sidebar.title("🧪 Project Info")
+
+st.sidebar.write("Developer: Pranav Koushik")
+
+st.sidebar.write("Model: Random Forest Regressor")
+
+st.sidebar.write("Target: logS (Solubility)")
