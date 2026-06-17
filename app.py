@@ -34,20 +34,26 @@ if st.button("Predict Solubility"):
         "AromaticProportion": [AromaticProportion]
     })
 
-   prediction = model.predict(input_data)
+if st.button("Predict Solubility"):
 
-pred_value = float(prediction[0])
+    input_data = pd.DataFrame({
+        ...
+    })
 
-st.success(
-    f"Predicted Solubility (logS): {pred_value:.3f}"
-)
+    prediction = model.predict(input_data)
 
-if pred_value > -2:
-    st.info("🟢 High Solubility Molecule")
-elif pred_value > -4:
-    st.warning("🟡 Moderate Solubility Molecule")
-else:
-    st.error("🔴 Low Solubility Molecule")
+    pred_value = float(prediction[0])
+
+    st.success(
+        f"Predicted Solubility (logS): {pred_value:.3f}"
+    )
+
+    if pred_value > -2:
+        st.info("🟢 High Solubility Molecule")
+    elif pred_value > -4:
+        st.warning("🟡 Moderate Solubility Molecule")
+    else:
+        st.error("🔴 Low Solubility Molecule")
 st.subheader("Model Information")
 
 st.write("Algorithm: Random Forest Regressor")
