@@ -2,11 +2,19 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load model
+# Load trained model
 model = joblib.load("solubility_model.pkl")
 
+# Page title
 st.title("🧪 Molecular Solubility Predictor")
 
+# Sidebar
+st.sidebar.title("Project Information")
+st.sidebar.write("Developer: Pranav Koushik")
+st.sidebar.write("Model: Random Forest Regressor")
+st.sidebar.write("Target: logS")
+
+# Description
 st.markdown("""
 This Machine Learning application predicts the aqueous solubility of molecules
 using a Random Forest Regression model.
@@ -20,11 +28,13 @@ using a Random Forest Regression model.
 
 st.subheader("Enter Molecular Descriptors")
 
+# Inputs
 MolLogP = st.number_input("MolLogP", value=2.0)
 MolWt = st.number_input("MolWt", value=200.0)
 NumRotatableBonds = st.number_input("NumRotatableBonds", value=2)
 AromaticProportion = st.number_input("AromaticProportion", value=0.5)
 
+# Prediction button
 if st.button("Predict Solubility"):
 
     input_data = pd.DataFrame({
@@ -32,12 +42,6 @@ if st.button("Predict Solubility"):
         "MolWt": [MolWt],
         "NumRotatableBonds": [NumRotatableBonds],
         "AromaticProportion": [AromaticProportion]
-    })
-
-if st.button("Predict Solubility"):
-
-    input_data = pd.DataFrame({
-        ...
     })
 
     prediction = model.predict(input_data)
@@ -54,16 +58,15 @@ if st.button("Predict Solubility"):
         st.warning("🟡 Moderate Solubility Molecule")
     else:
         st.error("🔴 Low Solubility Molecule")
+
+# Model information
+st.markdown("---")
 st.subheader("Model Information")
 
-st.write("Algorithm: Random Forest Regressor")
-st.write("Target Variable: logS")
+col1, col2 = st.columns(2)
 
-model = joblib.load("solubility_model.pkl")
-st.sidebar.title("🧪 Project Info")
+with col1:
+    st.metric("Algorithm", "Random Forest")
 
-st.sidebar.write("Developer: Pranav Koushik")
-
-st.sidebar.write("Model: Random Forest Regressor")
-
-st.sidebar.write("Target: logS (Solubility)")
+with col2:
+    st.metric("Target", "logS")
